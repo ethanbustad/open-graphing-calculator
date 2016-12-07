@@ -2,22 +2,39 @@
 <html>
 	<head>
 		<style>
+			.advanced-function, .editing {
+				clear: both;
+			}
+
 			#calculatorWrapper {
 				background: dimgrey;
+				border-radius: 15px;
 				margin: auto;
 				max-width: 400px;
-				padding: 10px;
+				padding: 20px 10px 25px;
 			}
 
 			#calculatorWrapper #screen {
-				background: teal;
+				background: #BCA;
+				font-family: monospace;
+				font-size: 3em;
 				height: 250px;
 				margin: 0 auto 20px;
 				width: 350px;
+				word-break: break-all;
+			}
+
+			.edit-keys {
+				width: 60%;
+			}
+
+			.edit-keys, .navigation {
+				float: left;
 			}
 
 			.graphing {
-				margin-bottom: 10px;
+				font-size: 0.8em;
+				margin-bottom: 3em;
 				text-align: center;
 			}
 
@@ -33,8 +50,8 @@
 				letter-spacing: -0.04em;
 			}
 
-			#keypad .graphing {
-				font-size: 0.8em;
+			#keypad .edit-keys .key {
+				width: 30%;
 			}
 
 			#keypad .key {
@@ -70,6 +87,20 @@
 				color: gray;
 			}
 
+			#keypad .nav-key.up, #keypad .nav-key.down {
+				margin-left: 15%;
+				margin: 0.2em 15%;
+				width: 30%;
+			}
+
+			#keypad .nav-key.left, #keypad .nav-key.right {
+				height: 2.5em;
+				line-height: 2em;
+				margin-top: -1em;
+				min-width: initial;
+				width: 15%;
+			}
+
 			#keypad.secondary-toggle .key {
 				color: yellow;
 			}
@@ -82,14 +113,23 @@
 				font-family: monospace;
 				font-size: 3em;
 				word-break: break-all;
-                position: relative;
+				position: relative;
+			}
+			.nav-column {
+				display: inline-block;
+				width: 40%;
 			}
 
-            #screen .entry-text {
-                bottom: 0px;
-                position: absolute;
-                right: 0px;
-            }
+			.navigation {
+				margin-top: -1em;
+				width: 40%;
+			}
+
+			#screen .entry-text {
+				bottom: 0px;
+				position: absolute;
+				right: 0px;
+			}
 		</style>
 		<title>Calculator</title>
 	</head>
@@ -109,18 +149,24 @@
 				</div>
 				<div class="editing">
 					<div class="edit-keys">
-						<div class="key second-function" data-primary="2nd" data-secondary="" data-alpha="" data-type="control">2nd</div>
-						<div class="key" data-primary="MODE" data-secondary="QUIT" data-alpha="" data-type="menu">MODE</div>
-						<div class="key" data-primary="DEL" data-secondary="INS" data-alpha="" data-type="control">DEL</div>
-						<div class="key alpha-function" data-primary="ALPHA" data-secondary="A-LOCK" data-alpha="" data-type="control">ALPHA</div>
-						<div class="key" data-primary="X,T,&theta;,&#119899;" data-secondary="LINK" data-alpha="">X,T,&theta;,&#119899;</div>
-						<div class="key" data-primary="STAT" data-secondary="LIST" data-alpha="" data-type="menu">STAT</div>
+						<div class="row">
+							<div class="key second-function" data-primary="2nd" data-secondary="" data-alpha="" data-type="control">2nd</div>
+							<div class="key" data-primary="MODE" data-secondary="QUIT" data-alpha="" data-type="menu">MODE</div>
+							<div class="key" data-primary="DEL" data-secondary="INS" data-alpha="" data-type="control">DEL</div>
+						</div>
+						<div class="row">
+							<div class="key alpha-function" data-primary="ALPHA" data-secondary="A-LOCK" data-alpha="" data-type="control">ALPHA</div>
+							<div class="key" data-primary="X,T,&theta;,&#119899;" data-secondary="LINK" data-alpha="">X,T,&theta;,&#119899;</div>
+							<div class="key" data-primary="STAT" data-secondary="LIST" data-alpha="" data-type="menu">STAT</div>
+						</div>
 					</div>
 					<div class="navigation">
-						<div class="key nav-key up" data-primary="&#9650;" data-secondary="Brighten Screen" data-alpha="Scroll UP" data-type="control">&#9650;</div>
 						<div class="key nav-key left" data-primary="&#9668;" data-secondary="" data-alpha="" data-type="control">&#9668;</div>
+						<div class="nav-column">
+							<div class="key nav-key up" data-primary="&#9650;" data-secondary="Brighten Screen" data-alpha="Scroll UP" data-type="control">&#9650;</div>
+							<div class="key nav-key down" data-primary="&#9660;" data-secondary="Darken Screen" data-alpha="Scroll DOWN" data-type="control">&#9660;</div>
+						</div>
 						<div class="key nav-key right" data-primary="&#9658;" data-secondary="" data-type="control">&#9658;</div>
-						<div class="key nav-key down" data-primary="&#9660;" data-secondary="Darken Screen" data-alpha="Scroll DOWN" data-type="control">&#9660;</div>
 					</div>
 				</div>
 				<div class="advanced-function">
@@ -161,7 +207,7 @@
 					<div class="key" data-primary="ON" data-secondary="OFF" data-alpha="">ON</div>
 					<div class="key" data-primary="0" data-secondary="CATALOG" data-alpha="␣">0</div>
 					<div class="key" data-primary="." data-secondary="&#119894;" data-alpha=":">.</div>
-					<div class="key" data-primary="(-)" data-secondary="ANS" data-alpha="?">(-)</div>
+					<div class="key" data-primary="(-)" data-secondary="ANS" data-alpha="?" data-primary-content="-">(&minus;)</div>
 					<div id="ajaxButton" class="key blue-key" data-primary="ENTER" data-secondary="ENTRY" data-alpha="SOLVE" data-type="control">ENTER</div>
 				</div>
 			</div>
@@ -171,9 +217,9 @@
 			var keypadWrapper = document.querySelector('#keypad');
 			var screenElement = document.querySelector('.entry-text');
 
-            function clearScreen() {
-                screenElement.innerHTML = '';
-            }
+			function clearScreen() {
+				screenElement.innerHTML = '';
+			}
 
 			for (var i = 0; i < keys.length; i++) {
 				keys[i].addEventListener('click', function(event) {
@@ -206,8 +252,8 @@
 					}
 
 					if (this.classList.contains('clear')){
-                        clearScreen();
-                    }
+						clearScreen();
+					}
 
 					var buttonType = this.getAttribute('data-type');
 
@@ -252,9 +298,9 @@
 				function alertContents() {
 					if (httpRequest.readyState === XMLHttpRequest.DONE) {
 						if (httpRequest.status === 200) {
-                            var tidy = httpRequest.responseText;
-                            tidy = JSON.parse(tidy);
-                            screenElement.innerHTML = tidy.output;
+							var tidy = httpRequest.responseText;
+							tidy = JSON.parse(tidy);
+							screenElement.innerHTML = tidy.output;
 						} else {
 							alert('There was a problem with the request.');
 						}
