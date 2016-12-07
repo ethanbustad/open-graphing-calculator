@@ -1,4 +1,4 @@
-package com.liferay.calculator;
+package com.liferay.calculator.repl;
 
 public class ExpressionRecord {
 

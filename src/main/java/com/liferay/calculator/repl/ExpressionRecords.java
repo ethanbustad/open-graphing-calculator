@@ -1,6 +1,4 @@
-package com.liferay.calculator;
-
-import com.liferay.calculator.ExpressionRecord;
+package com.liferay.calculator.repl;
 
 import java.util.LinkedList;
 

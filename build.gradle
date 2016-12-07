@@ -7,6 +7,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.udojava:EvalEx:1.0'
+    compile "org.json:json:20090211"
+    compile "com.udojava:EvalEx:1.0"
     providedCompile "javax.servlet:javax.servlet-api:3.0.1"
 }
