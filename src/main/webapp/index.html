@@ -4,6 +4,204 @@
 		<title>Calculator</title>
 	</head>
 	<body>
-		Hello, world.
+		<style>
+			#calculatorWrapper {
+				background: dimgrey;
+				margin: auto;
+				max-width: 400px;
+				padding: 10px;
+			}
+
+			#calculatorWrapper #screen {
+				background: teal;
+				height: 250px;
+				margin: 0 auto 20px;
+				width: 350px;
+			}
+
+			.graphing {
+				margin-bottom: 10px;
+				text-align: center;
+			}
+
+			.graphing .key,
+			.navigation .key.nav-key,
+			#keypad .key.blue-key {
+				background: mediumslateblue;
+			}
+
+			#keypad .key {
+				background: darkslategrey;
+				border-radius: 5px;
+				color: #FFF;
+				cursor: pointer;
+				display: inline-block;
+				min-width: 40px;
+				margin: 2px 0px;
+				padding: 2px 5px;
+				text-align: center;
+				width: 18%;
+				box-sizing: border-box;
+			}
+
+			#keypad .key.second-function {
+				background: lightsalmon;
+				color: #FFF !important;
+			}
+
+			#keypad .key.alpha-function,
+			#keypad.alpha-toggle .key.alpha-function {
+				background: darkgreen;
+				color: #FFF;
+			}
+
+			#keypad.alpha-toggle .key {
+				color: darkgreen;
+			}
+
+			#keypad.alpha-toggle .key[data-alpha=''] {
+				color: gray;
+			}
+
+			#keypad.secondary-toggle .key {
+				color: yellow;
+			}
+
+			#keypad.secondary-toggle .key[data-secondary=''] {
+				color: gray;
+			}
+		</style>
+		<div id="calculatorWrapper">
+			<div id="screen">
+				2*2
+			</div>
+
+			<div id="keypad">
+				<div class="graphing">
+					<div class="key" data-primary="Y=" data-secondary="STAT PLOT" data-alpha="F1">Y=</div>
+					<div class="key" data-primary="WINDOW" data-secondary="TBLSET" data-alpha="F2">WINDOW</div>
+					<div class="key" data-primary="ZOOM" data-secondary="FORMAT" data-alpha="F3">ZOOM</div>
+					<div class="key" data-primary="TRACE" data-secondary="CALC" data-alpha="F4">TRACE</div>
+					<div class="key" data-primary="GRAPH" data-secondary="TABLE" data-alpha="F5">GRAPH</div>
+				</div>
+				<div class="editing">
+					<div class="edit-keys">
+						<div class="key second-function" data-primary="2nd" data-secondary="" data-alpha="">2nd</div>
+						<div class="key" data-primary="MODE" data-secondary="QUIT" data-alpha="">MODE</div>
+						<div class="key" data-primary="DEL" data-secondary="INS" data-alpha="">DEL</div>
+						<div class="key alpha-function" data-primary="ALPHA" data-secondary="A-LOCK" data-alpha="">ALPHA</div>
+						<div class="key" data-primary="X,T,0,n" data-secondary="LINK" data-alpha="">X,T,0,n</div>
+						<div class="key" data-primary="STAT" data-secondary="LIST" data-alpha="">STAT</div>
+					</div>
+					<div class="navigation">
+						<div class="key nav-key up" data-primary="&#9650;" data-secondary="Brighten Screen" data-alpha="Scroll UP">&#9650;</div>
+						<div class="key nav-key left" data-primary="&#9668;" data-secondary="" data-alpha="">&#9668;</div>
+						<div class="key nav-key right" data-primary="&#9658;" data-secondary="">&#9658;</div>
+						<div class="key nav-key down" data-primary="&#9660;" data-secondary="Darken Screen" data-alpha="Scroll DOWN">&#9660;</div>
+					</div>
+				</div>
+				<div class="advanced-function">
+					<div class="key" data-primary="MATH" data-secondary="TEST" data-alpha="A">MATH</div>
+					<div class="key blue-key" data-primary="APPS" data-secondary="ANGLE" data-alpha="B">APPS</div>
+					<div class="key" data-primary="PRGM" data-secondary="DRAW" data-alpha="C">PRGM</div>
+					<div class="key" data-primary="VARS" data-secondary="DISTR" data-alpha="">VARS</div>
+					<div class="key" data-primary="CLEAR" data-secondary="" data-alpha="">CLEAR</div>
+				</div>
+				<div class="standard-calculator">
+					<div class="key" data-primary="x^2" data-secondary="√" data-alpha="I">x^2</div>
+					<div class="key" data-primary="," data-secondary="EE" data-alpha="J">,</div>
+					<div class="key" data-primary="(" data-secondary="{" data-alpha="K">(</div>
+					<div class="key" data-primary=")" data-secondary="}" data-alpha="L">)</div>
+					<div class="key blue-key" data-primary="÷" data-secondary="e" data-alpha="M">÷</div>
+					<div class="key" data-primary="LOG" data-secondary="10^x" data-alpha="N">LOG</div>
+					<div class="key" data-primary="7" data-secondary="u" data-alpha="O">7</div>
+					<div class="key" data-primary="8" data-secondary="v" data-alpha="P">8</div>
+					<div class="key" data-primary="9" data-secondary="w" data-alpha="Q">9</div>
+					<div class="key blue-key" data-primary="x" data-secondary="[" data-alpha="R">x</div>
+					<div class="key" data-primary="LN" data-secondary="e^x" data-alpha="S">LN</div>
+					<div class="key" data-primary="4" data-secondary="L4" data-alpha="T">4</div>
+					<div class="key" data-primary="5" data-secondary="L5" data-alpha="U">5</div>
+					<div class="key" data-primary="6" data-secondary="L6" data-alpha="V">6</div>
+					<div class="key blue-key" data-primary="-" data-secondary="]" data-alpha="W">-</div>
+					<div class="key" data-primary="STO ->" data-secondary="ACL" data-alpha="X">STO -></div>
+					<div class="key" data-primary="1" data-secondary="L1" data-alpha="Y">1</div>
+					<div class="key" data-primary="2" data-secondary="L2" data-alpha="Z">2</div>
+					<div class="key" data-primary="3" data-secondary="L3" data-alpha="A">3</div>
+					<div class="key blue-key" data-primary="+" data-secondary="MEM" data-alpha='"'>+</div>
+					<div class="key" data-primary="ON" data-secondary="OFF" data-alpha="">ON</div>
+					<div class="key" data-primary="0" data-secondary="CATALOG" data-alpha="␣">0</div>
+					<div class="key" data-primary="." data-secondary="i" data-alpha=":">.</div>
+					<div class="key" data-primary="(-)" data-secondary="ANS" data-alpha="?">(-)</div>
+					<div id="ajaxButton" class="key blue-key" data-primary="ENTER" data-secondary="ENTRY" data-alpha="SOLVE">ENTER</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			var keys = document.querySelectorAll('.key');
+			var keypadWrapper = document.querySelector('#keypad');
+
+			for (var i = 0; i < keys.length; i++) {
+				keys[i].addEventListener('click', function(event) {
+					this.classList.toggle('clicked');
+
+					if (this.classList.contains('second-function')) {
+						keypadWrapper.classList.toggle('secondary-toggle');
+
+						for (var i = 0; i < keys.length; i++) {
+							if (keys[i].getAttribute('data-secondary') && (keys[i].innerHTML != keys[i].getAttribute('data-secondary'))) {
+								keys[i].innerHTML = keys[i].getAttribute('data-secondary');
+							} else {
+								keys[i].innerHTML = keys[i].getAttribute('data-primary');
+							}
+						}
+					}
+
+					if (this.classList.contains('alpha-function')) {
+						keypadWrapper.classList.toggle('alpha-toggle');
+
+						for (var i = 0; i < keys.length; i++) {
+							if (keys[i].getAttribute('data-alpha') && (keys[i].innerHTML != keys[i].getAttribute('data-alpha'))) {
+								keys[i].innerHTML = keys[i].getAttribute('data-alpha');
+							} else {
+								keys[i].innerHTML = keys[i].getAttribute('data-primary');
+							}
+						}
+					}
+				});
+			}
+
+			(function() {
+				var httpRequest;
+				document.getElementById("ajaxButton").onclick = function() {
+					var screen = document.querySelector('#screen');
+					var entry = screen.innerHTML;
+
+					makeRequest('/open-graphing-calculator/api?expression=' + entry);
+				};
+
+				function makeRequest(url) {
+					httpRequest = new XMLHttpRequest();
+
+					if (!httpRequest) {
+						alert('Giving up :( Cannot create an XMLHTTP instance');
+						return false;
+					}
+					httpRequest.onreadystatechange = alertContents;
+					httpRequest.open('GET', url);
+					httpRequest.send();
+				}
+
+				function alertContents() {
+					if (httpRequest.readyState === XMLHttpRequest.DONE) {
+						if (httpRequest.status === 200) {
+							alert(httpRequest.responseText);
+						} else {
+							alert('There was a problem with the request.');
+						}
+					}
+				}
+			})();
+
+		</script>
 	</body>
 </html>
